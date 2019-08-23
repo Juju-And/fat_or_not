@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, send_file
+from flask import Flask, request, render_template, redirect
 from app import db
 from app.models.user import User
 
@@ -7,7 +7,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def welcome():
-    context = User.check_bmi(u)
+    # Znajdź dane ostatniego dodanego do bazy i użyć funkcji do sprawdzania
+    u = User.query.order_by(User.timestamp.desc()).first()
+    context = {'bmi_info': User.check_bmi(u)}
     return render_template('welcome_page.html', **context)
 
 
@@ -32,4 +34,4 @@ def show_list():
     return render_template('record_list.html')
 
 
-app.run()
+# app.run()
