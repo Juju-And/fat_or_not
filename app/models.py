@@ -18,11 +18,11 @@ class User(db.Model):
         # ≥ 25, 0 – nadwagę
         bmi = self.calculate_bmi()
         if bmi <= 18.5:
-            return bmi, "underweight"
+            return 'underweight'
         elif 18.6 <= bmi <= 25:
-            return bmi, "overweight"
+            return 'overweight'
         else:
-            return bmi, "ok"
+            return 'ok'
 
     def __repr__(self):
         return '<User {}>'.format(self.id)
