@@ -1,16 +1,18 @@
-from flask import Flask, request, render_template, redirect
-from app import db
-from app.models.user import User
-
-app = Flask(__name__)
-
+from flask import request, render_template, redirect
+from app import db, app
+from app.models import User
 
 @app.route("/")
 def welcome():
     # Znajdź dane ostatniego dodanego do bazy i użyć funkcji do sprawdzania
     u = User.query.order_by(User.timestamp.desc()).first()
-    context = {'bmi_info': User.check_bmi(u)}
+    if u:
+        context = {'bmi_info': User.check_bmi(u)}
+        print(User.check_bmi(u))
+    else:
+        context = {'bmi_info': "Grubasy są wśród nas"}
     return render_template('welcome_page.html', **context)
+    # return render_template('welcome_page.html')
 
 
 @app.route("/add", methods=["GET"])
@@ -22,7 +24,6 @@ def fill_form():
 def add_to_db():
     weight = request.form["weight"]
     height = request.form["height"]
-
     u = User(weight=weight, height=height)
     db.session.add(u)
     db.session.commit()
