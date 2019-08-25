@@ -3,13 +3,24 @@ from app import db, app
 from app.models import User
 
 
+def bmi_message(bmi_info):
+    # if bmi_info == 'underweight':
+    #     return 'Idź coś zjeść'
+    # elif bmi_info == 'overweight':
+    #     return 'Schudnij grubasie'
+    # else:
+    #     return 'Waga w normie'
+    messages = {'underweight': 'Idź coś zjeść!',
+                'overweight': 'Schudnij grubasie!',
+                'normal': 'Waga w normie'}
+    return messages[bmi_info]
+
+
 @app.route("/")
 def welcome():
-    # Znajdź dane ostatniego dodanego do bazy i użyć funkcji do sprawdzania
-
     u = User.query.order_by(User.timestamp.desc()).first()
     if u:
-        context = {'bmi_info': User.check_bmi(u)}
+        context = {'bmi_info': bmi_message(User.check_bmi(u))}
     else:
         context = {'bmi_info': "Grubasy są wśród nas"}
     return render_template('welcome_page.html', **context)
