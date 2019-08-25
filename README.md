@@ -16,13 +16,7 @@ pip install -r requirements.txt
 
 ### Installing
 
-As a first step to use the app, user should create the database with command:
-
-```
-$ flask db init
-```
-
-and upgrade your SQLite database, by:
+As a first step to upgrade your SQLite database, by:
 ```
 $ flask db upgrade
 ```
@@ -36,3 +30,4 @@ $ python3 main.py
 in console will be shown the link to localhost address.
 
 All interaction happens in the browser. User can add weight and height, application will count BMI, and add to the database.
+List of records would include only 10 last results and count it's average.
