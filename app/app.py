@@ -4,12 +4,6 @@ from app.models import User
 
 
 def bmi_message(bmi_info):
-    # if bmi_info == 'underweight':
-    #     return 'Idź coś zjeść'
-    # elif bmi_info == 'overweight':
-    #     return 'Schudnij grubasie'
-    # else:
-    #     return 'Waga w normie'
     messages = {'underweight': 'Idź coś zjeść!',
                 'overweight': 'Schudnij grubasie!',
                 'normal': 'Waga w normie'}
@@ -24,7 +18,6 @@ def welcome():
     else:
         context = {'bmi_info': "Grubasy są wśród nas"}
     return render_template('welcome_page.html', **context)
-    # return render_template('welcome_page.html')
 
 
 @app.route("/add", methods=["GET"])
@@ -61,5 +54,3 @@ def show_list():
     context = {'list_of_ten': list_of_ten,
                'avg_bmi': avg_bmi}
     return render_template('record_list.html', **context)
-
-# app.run()
