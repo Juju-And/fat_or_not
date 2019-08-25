@@ -9,7 +9,7 @@ class User(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def calculate_bmi(self):
-        return self.weight / ((self.height/100) * (self.height/100))
+        return round(self.weight / ((self.height/100) * (self.height/100)), 2)
 
     def check_bmi(self):
         # < 18, 5 – niedowagę
@@ -18,11 +18,11 @@ class User(db.Model):
         # ≥ 25, 0 – nadwagę
         bmi = self.calculate_bmi()
         if bmi <= 18.5:
-            return 'underweight'
-        elif 18.6 <= bmi <= 25:
-            return 'overweight'
+            return bmi, 'Idź coś zjeść'
+        elif bmi > 25:
+            return bmi, 'Schudnij grubasie'
         else:
-            return 'ok'
+            return bmi, 'Waga w normie'
 
     def __repr__(self):
         return '<User {}>'.format(self.id)

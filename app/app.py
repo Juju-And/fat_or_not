@@ -6,17 +6,10 @@ from app.models import User
 @app.route("/")
 def welcome():
     # Znajdź dane ostatniego dodanego do bazy i użyć funkcji do sprawdzania
-    u = User.query.order_by(User.timestamp.desc()).first()
-    bmi_message = {'underweight': 'Idź coś zjeść.',
-                   'overweight': 'Schudnij grubasie!',
-                   'ok': 'Waga w normie.'}
-    context = {}
-    if u:
-        for key in bmi_message.keys():
-            if key == User.check_bmi(u):
-                context = {'bmi_info': bmi_message[key]}
 
-        # context = {'bmi_info': User.check_bmi(u)}
+    u = User.query.order_by(User.timestamp.desc()).first()
+    if u:
+        context = {'bmi_info': User.check_bmi(u)}
     else:
         context = {'bmi_info': "Grubasy są wśród nas"}
     return render_template('welcome_page.html', **context)
@@ -40,6 +33,22 @@ def add_to_db():
 
 @app.route("/list")
 def show_list():
-    return render_template('record_list.html')
+    list_of_ten = []
+    users = User.query.order_by(User.timestamp.desc()).limit(10)
+    for el in users:
+        list_of_ten.append({
+            'height': el.height,
+            'weight': el.weight,
+            'bmi': el.calculate_bmi()
+        })
+
+    sum_bmi = 0
+    for el in list_of_ten:
+        sum_bmi += el['bmi']
+    avg_bmi = round(sum_bmi / len(list_of_ten), 2)
+
+    context = {'list_of_ten': list_of_ten,
+               'avg_bmi': avg_bmi}
+    return render_template('record_list.html', **context)
 
 # app.run()

@@ -1,10 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:background-color="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <style>
+        tr {
+            font-size:14px;
+            text-align:left;
+            padding-top:px;
+            padding-bottom:4px;
+
+        }
+        .summary-row {
+            font-size:14px;
+            text-align:left;
+            padding-top:px;
+            padding-bottom:4px;
+            background-color:#4D365B;
+            color:#918CB5;
+        }
+
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 5px;
+          text-align: left;
+        }
+    </style>
     <title>Record list</title>
 </head>
 <body>
-
+<h2>Średnie BMI</h2>
+<p>Poniżej znajdują się wyniki ostatnich 10-ciu użytkowników:</p>
+<table style="width:80%">
+    <tr>
+        <th>Waga</th>
+        <th>Wzrost</th>
+        <th>BMI</th>
+    </tr>
+    {% for record in list_of_ten %}
+    <tr>
+        <td>{{record['height']}}</td>
+        <td>{{record['weight']}}</td>
+        <td>{{record['bmi']}}</td>
+        {% endfor %}
+    </tr>
+    <tr class="summary-row">
+        <td>-</td>
+        <td>Średnie BMI</td>
+        <td>{{avg_bmi}}</td>
+    </tr>
+</table>
+<br>
+<br>
+<a href="/">Wróć</a>
 </body>
 </html>
