@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 Install all required modules running pip with the provided file:
 
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ### Installing
@@ -22,12 +22,7 @@ As a first step to use the app, user should create the database with command:
 $ flask db init
 ```
 
-migrate data to database automatically, thanks to Alembic:
-```
-$ flask db migrate -m "users table"
-```
-
-and upgrade you SQLite database, by:
+and upgrade your SQLite database, by:
 ```
 $ flask db upgrade
 ```
