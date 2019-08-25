@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 ### Installing
 
-As a first step to upgrade your SQLite database, by:
+As a first step upgrade SQLite database, by:
 ```
 $ flask db upgrade
 ```
